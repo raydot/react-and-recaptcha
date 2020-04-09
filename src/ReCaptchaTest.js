@@ -4,6 +4,7 @@ import { loadReCaptcha } from "react-recaptcha-v3";
 const ReCaptchaTest = () => {
   useEffect(() => {
     //This is "componentdidmount"
+    loadReCaptcha(process.env.RECAPTCHA_SITE_KEY);
   });
 
   const submitScript = () => {
@@ -20,6 +21,7 @@ const ReCaptchaTest = () => {
         <button value="submit" onClick={submitScript}>
           Click me!
         </button>
+        <input type="text" value={process.env.REACT_APP_TEST_CODE} />
       </form>
     </div>
   );
