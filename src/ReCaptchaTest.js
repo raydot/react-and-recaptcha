@@ -1,14 +1,16 @@
-import React, { useEffect } from "react";
-import { loadReCaptcha } from "react-recaptcha-v3";
+import React from "react";
+import { ReCaptcha } from "react-recaptcha-v3";
 
-const ReCaptchaTest = () => {
-  useEffect(() => {
-    //This is "componentdidmount"
-    loadReCaptcha(process.env.RECAPTCHA_SITE_KEY);
-  });
+const ReCaptchaTest = (props) => {
+  const mySitekey = props.recaptchaKey;
 
   const submitScript = () => {
-    alert("submitted!");
+    // This works
+    //alert(`submitted! ${props.recaptchaKey}`);
+  };
+
+  const verifyCallback = (recaptchaToken) => {
+    alert(recaptchaToken, "<= Recaptcha token!");
   };
 
   return (
@@ -16,12 +18,16 @@ const ReCaptchaTest = () => {
       <form>
         Please submit your e-mail address:
         <br />
-        <input type="text" />
+        <input type="text" defaultValue="This works" />
         <br />
         <button value="submit" onClick={submitScript}>
           Click me!
         </button>
-        <input type="text" value={process.env.REACT_APP_TEST_CODE} />
+        <ReCaptcha
+          sitekey={mySitekey}
+          action="reacaptchaAction"
+          verifyCallback={verifyCallback}
+        />
       </form>
     </div>
   );
